@@ -9,9 +9,11 @@ end
 
 function (@main)(args)
     if isempty(args)
-        println("No search term was provided. You must provide a search term as an argument to the program.")
+        # println("No search term was provided. You must provide a search term as an argument to the program.")
+        println("Geen zoekterm opgegeven.")
     elseif length(args) > 1
-        println("More than one search term was provided, only one can be given.")
+        # println("More than one search term was provided, only one can be given.")
+        println("Meer dan 1 zoekterm opgegegeven.")
     end
     search_term = only(args)
 
@@ -23,10 +25,11 @@ function (@main)(args)
     matches = search_cameras(db, search_term) |> DataFrame
     
     if isempty(matches)
-        println("""No matches found for term "$search_term".""")
+        # println("""No matches found for term "$search_term".""")
+        println("""Geen camera's gevonden met de zoekterm $(serach_term)""")
     end
     for row in eachrow(matches)
-        println(row)
+        println("""$(row.number) | $(row.name) | $(row.latitude) | $(row.longitude)""")
     end
 
     close(db)
