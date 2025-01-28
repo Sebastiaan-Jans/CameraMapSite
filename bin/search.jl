@@ -1,0 +1,36 @@
+using SQLite
+using DataFrames
+
+const db_name = "cameras"
+
+function search_cameras(db::DBInterface.Connection, search_term::AbstractString)
+    return DBInterface.execute(db, "SELECT * FROM $db_name WHERE name LIKE '%$search_term%'")
+end
+
+function (@main)(args)
+    if isempty(args)
+        println("No search term was provided. You must provide a search term as an argument to the program.")
+    elseif length(args) > 1
+        println("More than one search term was provided, only one can be given.")
+    end
+    search_term = only(args)
+
+    # assumes the script is located in the /bin of the project
+    db_path = joinpath(@__DIR__, "..", "db", db_name * ".sqlite")
+
+    db = SQLite.DB(db_path)
+
+    matches = search_cameras(db, search_term) |> DataFrame
+    
+    if isempty(matches)
+        println("""No matches found for term "$search_term".""")
+    end
+    for row in eachrow(matches)
+        println(row)
+    end
+
+    close(db)
+end
+
+# For compatibility with Julia versions below 1.11 which don't have Main.main
+@isdefined(var"@main") ? (@main) : exit(main(ARGS))
