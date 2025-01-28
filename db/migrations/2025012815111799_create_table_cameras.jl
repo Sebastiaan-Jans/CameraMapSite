@@ -6,15 +6,15 @@ function up()
   create_table(:cameras) do
     [
       pk()
-      column(:column_name, :column_type)
-      columns([
-        :column_name => :column_type
-      ])
+      column(:name, :string)
+      column(:number, :integer)
+      column(:latitude, :float)
+      column(:longitude, :float)
     ]
   end
 
-  add_index(:cameras, :column_name)
-  add_indices(:cameras, :column_name_1, :column_name_2)
+  # Only the :Camera field has to be searched through quickly
+  add_index(:cameras, :name)
 end
 
 function down()
