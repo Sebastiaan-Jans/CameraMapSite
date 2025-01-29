@@ -12,9 +12,11 @@ function (@main)(args)
     if isempty(args)
         # println("No search term was provided. You must provide a search term as an argument to the program.")
         println("Geen zoekterm opgegeven.")
+        return
     elseif length(args) > 1
         # println("More than one search term was provided, only one can be given.")
         println("Meer dan 1 zoekterm opgegegeven.")
+        return
     end
     search_term = only(args)
 
@@ -27,7 +29,8 @@ function (@main)(args)
     
     if isempty(matches)
         # println("""No matches found for term "$search_term".""")
-        println("""Geen camera's gevonden met de zoekterm $(serach_term)""")
+        println("""Geen camera's gevonden met de zoekterm $(search_term)""")
+        return
     end
     max_name_length = maximum(textwidth.(matches.name))
     header_string = """Num | $(rpad("Camera", max_name_length)) | Breedtegraad | Lengtegraad"""
