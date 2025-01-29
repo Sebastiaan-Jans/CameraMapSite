@@ -14,14 +14,14 @@ Het zoekscript is te runnen door in de command line te navigeren naar de map van
 
 ```$ julia --project=. bin/search.jl zoekterm```
 
-Vervang `zoekterm` door de gewenste zoekterm. De flag `--project` moet naar de projectmap wijzen (`.` als je daarin zit) zodat de dependencies uit het project geladen worden en je niet alle dependencies in je algemene environment hoeft te installeren.
+Vervang `zoekterm` door de gewenste zoekterm. De flag `--project` moet naar de projectmap wijzen (`.` als je daarin zit) zodat de dependencies uit het project geladen worden en je niet alle dependencies in je algemene environment hoeft te installeren. De eerste keer dat je dit doet zal relatief lang duren, omdat de dependencies gedownload en geprecompiled moeten worden.
 
 ### REST API
 Om de webserver te starten, navigeer je eerst naar de projectmap en run je
 
-```$ bin/repl```.
+```$ bin/repl```
 
-Zodra het klaar is met laden, run dan
+Ook dit zal de eerste keer een tijdje duren. Zodra het klaar is met laden, run dan
 
 ```julia> up()```
 
