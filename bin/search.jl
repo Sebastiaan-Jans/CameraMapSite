@@ -5,6 +5,7 @@ const db_name = "cameras"
 
 function search_cameras(db::DBInterface.Connection, search_term::AbstractString)
     return DBInterface.execute(db, "SELECT * FROM $db_name WHERE name LIKE '%$search_term%'")
+    # TODO: maybe optionally support more advanced search, like regex
 end
 
 function (@main)(args)
@@ -28,8 +29,19 @@ function (@main)(args)
         # println("""No matches found for term "$search_term".""")
         println("""Geen camera's gevonden met de zoekterm $(serach_term)""")
     end
+    max_name_length = maximum(textwidth.(matches.name))
+    header_string = """Num | $(rpad("Camera", max_name_length)) | Breedtegraad | Lengtegraad"""
+    println(header_string)
+    println("-"^textwidth(header_string))
     for row in eachrow(matches)
-        println("""$(row.number) | $(row.name) | $(row.latitude) | $(row.longitude)""")
+        println(
+            join([
+                row.number,
+                rpad(row.name, max_name_length),
+                rpad(round(row.latitude; digits = 6), textwidth("Breedtegraad")),
+                rpad(round(row.longitude; digits = 6), textwidth("Lengtegraad")),
+            ], " | ")
+        )
     end
 
     close(db)
