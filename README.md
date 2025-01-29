@@ -17,7 +17,7 @@ Het zoekscript is te runnen door in de command line te navigeren naar de map van
 Vervang `zoekterm` door de gewenste zoekterm. De flag `--project` moet naar de projectmap wijzen (`.` als je daarin zit) zodat de dependencies uit het project geladen worden en je niet alle dependencies in je algemene environment hoeft te installeren.
 
 ### REST API
-Om de webserver te starten, navigeer je eerst naar de projectmap en run 
+Om de webserver te starten, navigeer je eerst naar de projectmap en run je
 
 ```$ bin/repl```.
 
